@@ -196,7 +196,7 @@ debian/control: debian/control.in debian/rules
 ifeq (,$(ia32_prefix))
   in_files = debian/*.in
 else
-  in_files = debian/JB-{archive,bin,control}*.in
+  in_files = debian/JB-{archive,bin}*.in
   ia32txt= $(empty_) (32bit)
 endif
 packaging-files:
@@ -484,8 +484,6 @@ endif
 # a bit ugly fix for lenny with 32bit libraries installed from backports
 ifeq (,$(ia32_prefix))
 	rm -f debian/shlibs.local
-else
-	echo 'libasound 2 lib32asound2' > debian/shlibs.local
 endif
 
 	rm -f $(d_jbin).substvars
@@ -503,7 +501,7 @@ endif
 		-l$(basedir)/jre/lib/$(archdir)/server \
 		-Xjavaws -Xpolicytool \
 		-Xlibawt -Xlibjawt -Xlibmawt -Xlibdcpr \
-		-Xlibfontmanager -Xlibjsoundalsa  -X_g.so \
+		-Xlibfontmanager -X_g.so \
 		-Xlibsplashscreen -Xlibmlib -Xlibdeploy \
 		-- --warnings=0
 	sed -i -e 's/ *([^,]*) *//g' $(d_jbin).substvars
