@@ -450,13 +450,13 @@ binary-$(p_jbin):	build
 	cp -p debian/$(p_jbin).overrides \
 		$(d_jbin)/$(lintian_overrides)/$(p_jbin)
 
-        for i in archive; do \
-          cp debian/$(basename)-$$i.applications \
-            $(d_jbin)/usr/share/application-registry/; \
-          cp debian/$(basename)-$$i.keys $(d_jbin)/usr/share/mime-info/; \
-          cp debian/$(basename)-$$i.mime $(d_jbin)/usr/share/mime-info/; \
-        done
- 
+	for i in archive; do \
+	  cp debian/$(basename)-$$i.applications \
+	    $(d_jbin)/usr/share/application-registry/; \
+	  cp debian/$(basename)-$$i.keys $(d_jbin)/usr/share/mime-info/; \
+	  cp debian/$(basename)-$$i.mime $(d_jbin)/usr/share/mime-info/; \
+	done
+
 
 	: # install manpages
 	set -e; \
