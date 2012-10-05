@@ -1,2 +1,1 @@
 @basename@-jre: extra-license-file @basedir@/jre/LICENSE
-@basename@-jre: image-file-in-usr-lib @basedir@/jre/lib/images/*

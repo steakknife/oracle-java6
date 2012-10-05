@@ -12,7 +12,7 @@ Architecture: all
 Provides: java-virtual-machine, java-runtime, java2-runtime, java5-runtime, java6-runtime, java-runtime-headless, java2-runtime-headless, java5-runtime-headless, java6-runtime-headless
 Depends: java-common (>= 0.28), locales, @basename@-bin (>= ${source:Version}) | ia32-@basename@-bin (>= ${source:Version}), ${misc:Depends}
 Recommends: gsfonts-x11
-Suggests: @basename@-plugin, @basename@-fonts, @cjk_fonts@
+Suggests: @basename@-fonts, @cjk_fonts@
 Replaces: @basename@-bin, ia32-@basename@-bin
 Description: @vendor@ Java(TM) Runtime Environment (JRE) @RELEASE@ (architecture independent files)
  The @vendor@ Java Platform Standard Edition Runtime Environment (JRE) @RELEASE@

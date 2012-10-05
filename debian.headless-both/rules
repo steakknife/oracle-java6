@@ -99,14 +99,10 @@ d_jbin	:= debian/$(p_jbin)
 d_jdk	:= debian/$(p_jdk)
 d_src	:= debian/$(p_src)
 d_fonts	:= debian/$(p_fonts)
-d_plug	:= debian/$(p_plug)
 d_javadb	:= debian/$(p_javadb)
 
 binary_arch_targets	= \
     $(patsubst %, binary-%, $(p_jbin) $(p_jdk))
-ifneq (,$(filter $(DEB_HOST_ARCH), amd64 i386))
-    binary_arch_targets	+= binary-$(p_plug)
-endif
 ifeq ($(with_ia32),yes)
     binary_arch_targets	+= ia32-binary-bin
 endif
@@ -200,7 +196,7 @@ debian/control: debian/control.in debian/rules
 ifeq (,$(ia32_prefix))
   in_files = debian/*.in
 else
-  in_files = debian/JB-{archive,bin,control,java,policy,web}*.in
+  in_files = debian/JB-{archive,bin,control}*.in
   ia32txt= $(empty_) (32bit)
 endif
 packaging-files:
@@ -225,10 +221,6 @@ packaging-files:
 	      -e 's,@java_launcher@,$(java_launcher),g' \
 	    $$f > $$f2; \
 	done
-ifneq (,$(filter $(DEB_HOST_ARCH), amd64 i386))
-	cat debian/$(p_jbin)-i586.menu >> $(d_jbin).menu
-	rm -f debian/$(p_jbin)-i586.menu
-endif
 ia32-packaging-files:
 	$(MAKE) -f debian/rules packaging-files \
 		ia32_prefix=ia32- \
@@ -458,24 +450,13 @@ binary-$(p_jbin):	build
 	cp -p debian/$(p_jbin).overrides \
 		$(d_jbin)/$(lintian_overrides)/$(p_jbin)
 
-	: # add GNOME stuff
-	cp -p debian/$(basename)-java.desktop \
-	      $(d_jbin)/usr/share/applications/
-	cp -p debian/$(basename)-policytool.desktop \
-	      $(d_jbin)/usr/share/applications/
-ifneq (,$(filter $(DEB_HOST_ARCH), amd64 i386))
-	cp -p debian/$(basename)-{java,javaws}.desktop \
-	      $(d_jbin)/usr/share/applications/
-	cp -p debian/$(basename)-{controlpanel,policytool}.desktop \
-	      $(d_jbin)/usr/share/applications/
-endif
-
-	for i in archive web-start; do \
-	  cp debian/$(basename)-$$i.applications \
-	    $(d_jbin)/usr/share/application-registry/; \
-	  cp debian/$(basename)-$$i.keys $(d_jbin)/usr/share/mime-info/; \
-	  cp debian/$(basename)-$$i.mime $(d_jbin)/usr/share/mime-info/; \
-	done
+        for i in archive; do \
+          cp debian/$(basename)-$$i.applications \
+            $(d_jbin)/usr/share/application-registry/; \
+          cp debian/$(basename)-$$i.keys $(d_jbin)/usr/share/mime-info/; \
+          cp debian/$(basename)-$$i.mime $(d_jbin)/usr/share/mime-info/; \
+        done
+ 
 
 	: # install manpages
 	set -e; \
@@ -515,7 +496,6 @@ endif
 
 	sed -i -e 's/libc6[^,]*, *//g' -e 's/libc6[^,]*$$//g' -e 's/ *([^,]*) *//g' \
 		$(d_jbin).substvars
-	cp -p $(d_jbin).substvars $(d_plug).substvars
 	sed -e 's/Depends/Recommends/' \
 		$(d_jbin).substvars > $(d_jbin).substvars.tmp
 	rm -f debian/$(p_jbin).substvars
@@ -609,16 +589,6 @@ binary-$(p_jre):	build
 		/$(basedir)/jre/lib/swing.properties
 
 
-binary-$(p_plug):	DH_OPTIONS=-p$(p_plug)
-binary-$(p_plug):	build
-	dh_testdir
-	dh_testroot
-	dh_clean -d
-	dh_installdirs \
-		usr/share/doc \
-		$(lintian_overrides) 
-	ln -s $(p_jbin) $(d_plug)/usr/share/doc/$(p_plug)
-
 binary-$(p_fonts):	DH_OPTIONS=-p$(p_fonts)
 binary-$(p_fonts):	build
 	dh_testroot
@@ -667,10 +637,6 @@ binary-$(p_jdk):	build
 	: # fix java-rmi.cgi PATH
 	perl -pi -e 's:/usr/local/java/bin:/$(basedir)/bin:' \
 	    $(d_jdk)/$(basedir)/bin/java-rmi.cgi
-
-	: # add menu stuff
-	cp -p debian/$(basename)-jvisualvm.desktop \
-	      $(d_jdk)/usr/share/applications/
 
 	: # add lintian overrides
 	cp -p debian/$(p_jdk).overrides \
@@ -746,8 +712,6 @@ binary-indep:	$(binary_indep_targets)
 	dh_testdir
 	dh_testroot
 	dh_installmime
-	dh_installmenu
-	dh_icons
 	dh_link
 	: # don't compress anything from the shipped demo and sample files
 	dh_compress -Xdemo -Xsample -X.html
@@ -763,8 +727,6 @@ binary-arch:	$(binary_arch_targets)
 	dh_testdir
 	dh_testroot
 	dh_installmime
-	dh_installmenu
-	dh_icons
 	dh_link
 	: # don't compress anything from the shipped demo and sample files
 	dh_compress -Xdemo -Xexamples -Xsample -X.html -X.pdf
