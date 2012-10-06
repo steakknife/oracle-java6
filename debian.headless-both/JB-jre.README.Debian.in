@@ -1,13 +1,3 @@
-Compatibility and problems with some window managers
-====================================================
-
-Some window mangers have problems running java programs with the environment
-variable AWT_TOOLKIT=MToolkit. For these cases, please use a window manger
-which doesn't show these problems.
-
-For details, please see http://bugs.debian.org/504524
-
-
 Installation of extensions:
 ===========================
 * Extensions which work with all Java 2 VMs (>= v1.3) should be installed
@@ -31,15 +21,6 @@ corresponding section in /etc/@basename@/security/java.policy.
 Alternatives:
 =============
 Please see README.alternatives.
-
-
-Java Plug-In:
-=========================
-* The @basename@-plugin package automatically enables the Java Plug-In
-  for use with Firefox, Mozilla, and browsers based on Mozilla.
-* The Plug-In can be configured with the program ControlPanel.
-* Make sure you have Java enabled in Iceweasel's preferences dialog.
-
 
 
 Java Cryptography Extension (JCE) support:
