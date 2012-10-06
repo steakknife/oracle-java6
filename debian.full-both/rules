@@ -491,7 +491,7 @@ endif
 
 	cp -p $(d_jbin)/$(basedir)/jre/plugin/desktop/sun_java.png \
 		$(d_jbin)/usr/share/pixmaps/$(basename).png
-	cp -p debian/sun_java.xpm \
+	cp -p debian/oracle_java.xpm \
 		$(d_jbin)/usr/share/pixmaps/$(basename).xpm
 
 	: # install manpages

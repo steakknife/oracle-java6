@@ -112,8 +112,8 @@ Architecture: all
 Section: non-free/java
 Depends: @basename@-jdk (>= ${source:Version}), ${misc:Depends}
 Enhances: @basename@-jdk
-Description: Java(TM) DB, Sun Microsystems' distribution of Apache Derby
- Java DB is Sun's supported distribution of the open source Apache 
+Description: Java(TM) DB, the Oracle distribution of Apache Derby
+ Java DB is the Oracle supported distribution of the open source Apache 
  Derby 100% Java technology database. It is fully transactional, secure, 
  easy-to-use, standards-based -- SQL, JDBC API, and Java EE -- yet small, 
  only 2MB.

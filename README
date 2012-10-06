@@ -11,12 +11,19 @@ find ones, I've decided to make my own, so I've pulled latest package
 sources from the Debian Subversion repository and adapted it to the
 latest Java 6.
 
-2. Supported Debian versions
+2. Supported Linux versions (i386 & amd64)
 
-So far packages were tested on following Debian versions:
-- wheezy i386/amd64
-- squeeze i386/amd64
-- lenny i386/amd64
+Ubuntu 
+- 12.04 precise (lts)
+- 11.10 oneric 
+- 11.04 natty 
+- 10.10 maverick 
+- 10.04 lucid (lts)
+
+Debian:
+- 7 wheezy 
+- 6 squeeze 
+- 5 lenny
 
 New users of Debian Wheezy should cosider using java-package:
 http://wiki.debian.org/JavaPackage
@@ -26,10 +33,6 @@ removed a lot of obsolete code (dating back to etch), licensing stuff
 (since it does not apply anymore) and made general cleanups. For
 details of changes see 'changelog' file.
 
-I do not have resources to test packages on Ubuntu. However, if one
-finds any problem on Ubuntu, feel free to report an issue and I will
-try to resolve it.
-
 For automated solution Ubuntu users can use:
 https://github.com/flexiondotorg/oab-java6
 
@@ -37,14 +40,14 @@ https://github.com/flexiondotorg/oab-java6
 
 To create packages on your own:
 - apt-get install dpkg-dev
-- git clone git://github.com/rraptorr/sun-java6.git
-- cd sun-java6
+- git clone git://github.com/steakknife/oracle-java6.git
+- cd oracle-java6
 - Download jdk-6u35-linux-i586.bin and jdk-6u35-linux-x64.bin from
   http://www.oracle.com/technetwork/java/javase/downloads/index.html
   (yes, both, no matter which version you will run)
 - Download jce_policy-6.zip from the same page under "Java Cryptography
   Extension (JCE) Unlimited Strength Jurisdiction Policy Files 6"
-- dpkg-buildpackage -uc -us
+- dpkg-buildpackage -uc -us || dpkg-buildpackage -uc -us 
 - install any missing packages that dpkg-buildpackage complains about
   and repeat
 
