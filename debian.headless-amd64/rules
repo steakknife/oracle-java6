@@ -479,6 +479,8 @@ binary-$(p_jbin):	build
 	  echo 'magic PK\x03\x04'; \
 	) > $(d_jbin)/$(basedir)/jre/lib/jar.binfmt
 
+	ln -sf $(p_jre) $(d_jbin)/usr/share/doc/$(p_jbin)
+
 	rm -f debian/$(p_jbin).substvars.tmp
 
 	( \
