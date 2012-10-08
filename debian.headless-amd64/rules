@@ -183,7 +183,7 @@ debian/control: debian/control.in debian/rules
           exit 1; \
 	fi
 
-in_files = debian/JB-{archive,bin}*.in
+in_files = debian/*.in
 packaging-files:
 	for f in $(in_files); do \
 	  case "$$f" in debian/control.in) continue; esac; \
