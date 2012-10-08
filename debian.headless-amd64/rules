@@ -581,10 +581,6 @@ binary-$(p_jdk):	build
 	-find $(d_jbin)/$(basedir)/jre/bin \! -type d \
 		-printf "$(d_jdk)/$(basedir)/bin/%P\0" | xargs -r0 rm -f
 
-	: # fix java-rmi.cgi PATH
-	perl -pi -e 's:/usr/local/java/bin:/$(basedir)/bin:' \
-	    $(d_jdk)/$(basedir)/bin/java-rmi.cgi
-
 	: # add lintian overrides
 	cp -p debian/$(p_jdk).overrides \
 		$(d_jdk)/$(lintian_overrides)/$(p_jdk)
